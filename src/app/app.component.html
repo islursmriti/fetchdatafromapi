@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<table id="my-table">
+  <thead>  <tr>
+    <th>Panel Name</th>
+    <th>Mac Id</th>
+    <th>Lat</th>
+    <th>Long</th>
+    <th>Location</th>
+  </tr></thead>
+<tbody>  <tr *ngFor="let p of users">
+  <td>{{p.panel_name}}</td>
+  <td>{{p.mac_id}}</td>
+  <td>{{p.Lat}}</td>
+  <td>{{p.Lng}}</td>
+  <td>Location_Icon</td>
+</tr></tbody>
+
+</table>
+<!-- <div  id="mySidebar">
+  <button onclick="close()" >Close &times;</button>
+  <table>
+    <thead>  <tr>
+      <th>Parameters</th>
+      <th>R Phase</th>
+    </tr></thead>
+  <tbody>  <tr>
+    <td>Voltage Status</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>MCB Status</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Load Status</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>PF Status</td>
+    <td></td>
+  </tr>
+</tbody>
+  
+  </table>
+</div> -->
+
+</html>
