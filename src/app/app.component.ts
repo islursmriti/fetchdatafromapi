@@ -31,9 +31,11 @@ import { GetServiceService } from "./service/data.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
+  selectedPanelName: string | undefined;
   //constructor(private http: HttpClient) { }
    public users: res[]=[];
+   tableData: any[] = [];
+   isSidebarOpen = false; 
   // public ngOnInit():void {
   //   // Make a GET request to the URL containing the JSON data
   //   this.http.get('https://uat.utopiatech.in:4520/panel/gettestlist?org_id=3').subscribe((response) => {
@@ -49,6 +51,34 @@ export class AppComponent {
     this.getAPI.getData().pipe(pluck("result")).subscribe(r => {
       this.users=r;
         console.log(r);
+        
       });
+  }
+  createSidebarTable(l: string) {
+    
+   this.selectedPanelName=l;
+    for(const pn of this.users){
+    if(l==pn.panel_name){
+      //console.log(l);
+       this.tableData = [
+        { Parameters: 'Voltage Status', R_Phase: pn.r_volt_status },
+        { Parameters: 'MCB Status', R_Phase: pn.r_mcb_status },
+        { Parameters: 'Load Status', R_Phase: pn.r_load_status },
+        { Parameters: 'PF Status', R_Phase: pn.r_pf_status },
+      ];
+    }} 
+    this.isSidebarOpen = true;
+  }
+  // toggleSidebar(panelName: string) {
+  //   if (this.selectedPanelName === panelName) {
+  //     // If the selected panel name matches the one that was clicked, close the sidebar.
+  //     this.isSidebarOpen = false;
+  //   } else {
+  //     // If a different panel name was clicked, open the sidebar and update the table.
+  //     this.createSidebarTable(panelName);
+  //   }
+  // }
+  closeSidebar() {
+    this.isSidebarOpen = false;
   }
 }

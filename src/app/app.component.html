@@ -1,5 +1,59 @@
-<!DOCTYPE html>
-<html>
+<!-- <script>
+  document.getElementById ('post').addEventListener ('click', tableopen());
+  //const l = document.querySelector('td').getAttribute('data-string-value');
+  //const l = document.getElementById('p').getAttribute('data-panel-name');
+  function tableopen(){//const l=event.target.value;
+    const l = document.getElementById ('post').getAttribute('data-my-data');
+    for(const pn of users){
+    if(l==pn.panel_name){
+      console.log(l);
+      //l.innerHTML = 'The text is changed!'
+      const table = document.createElement('table');
+      table.classList.add('sidebar-table');
+    
+      // Create a table header row.
+      const headerRow = document.createElement('tr');
+      headerRow.classList.add('header-row');
+    
+      // Create a table header cell for each column in the table.
+      for (const column of pn[0]) {
+        const headerCell = document.createElement('th');
+        headerCell.textContent = column;
+        headerRow.appendChild(headerCell);
+      }
+    
+      // Add the header row to the table.
+      table.appendChild(headerRow);
+    
+      // Create a table body row for each object in the data array.
+      for (const row of pn) {
+        const bodyRow = document.createElement('tr');
+        bodyRow.classList.add('body-row');
+    
+        // Create a table body cell for each column in the table.
+        for (const column of row) {
+          const bodyCell = document.createElement('td');
+          bodyCell.textContent = row[column];
+          bodyRow.appendChild(bodyCell);
+        }
+    
+        // Add the body row to the table.
+        table.appendChild(bodyRow);
+      }
+    
+      // Create a sidebar element.
+      const sidebar = document.createElement('div');
+      sidebar.classList.add('sidebar');
+    
+      // Add the table to the sidebar element.
+      sidebar.appendChild(table);
+    
+      // Add the sidebar element to the body of the document.
+      document.body.appendChild(sidebar);
+    }} 
+  };
+</script> -->
+
 <table id="my-table">
   <thead>  <tr>
     <th>Panel Name</th>
@@ -9,7 +63,7 @@
     <th>Location</th>
   </tr></thead>
 <tbody>  <tr *ngFor="let p of users">
-  <td>{{p.panel_name}}</td>
+  <td id="post" (click)="createSidebarTable(p.panel_name)">{{p.panel_name}}</td>
   <td>{{p.mac_id}}</td>
   <td>{{p.Lat}}</td>
   <td>{{p.Lng}}</td>
@@ -23,7 +77,7 @@
     <thead>  <tr>
       <th>Parameters</th>
       <th>R Phase</th>
-    </tr></thead>
+    </tr>pn.r_volt_status</thead>
   <tbody>  <tr>
     <td>Voltage Status</td>
     <td></td>
@@ -44,5 +98,27 @@
   
   </table>
 </div> -->
+<div class="sidebar" *ngIf="isSidebarOpen">
+  <button (click)="closeSidebar()" class="close-button">Close &times;</button>
+  <h3>{{ selectedPanelName }} Panel Details</h3>
+  <div *ngIf="tableData.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Parameters</th>
+          <th>R Phase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData">
+          <td>{{ row.Parameters }}</td>
+          <td>{{ row.R_Phase }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="tableData.length === 0">
+    <p>No data available for {{ selectedPanelName }}.</p>
+  </div>
+</div>
 
-</html>
