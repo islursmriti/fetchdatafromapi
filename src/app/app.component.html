@@ -67,7 +67,7 @@
   <td>{{p.mac_id}}</td>
   <td>{{p.Lat}}</td>
   <td>{{p.Lng}}</td>
-  <td>Location_Icon</td>
+  <td (click)="showMap(p)">Location_Icon</td>
 </tr></tbody>
 
 </table>
@@ -122,3 +122,12 @@
   </div>
 </div>
 
+<div *ngIf="isMapVisible" class="map-container">
+  <button (click)="closeMapSidebar()">Close</button>
+  <div id="map" style="width: 100%; height: 300px;"></div>
+  <div *ngIf="selectedMarker">
+    Latitude: {{selectedMarker.lat}}<br>
+    Longitude: {{selectedMarker.lng}}
+  </div>
+  
+</div>

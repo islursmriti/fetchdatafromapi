@@ -32,6 +32,9 @@ import { GetServiceService } from "./service/data.service";
 })
 export class AppComponent {
   selectedPanelName: string | undefined;
+  isMapVisible: boolean = false;
+  selectedMarker: { lat: number, lng: number } | null = null;
+
   //constructor(private http: HttpClient) { }
    public users: res[]=[];
    tableData: any[] = [];
@@ -46,6 +49,32 @@ export class AppComponent {
   //       //console.log(this.users);
   //     });
   // }
+  showMap(panel: res) {
+    this.isMapVisible = true;
+
+    const mapOptions: google.maps.MapOptions = {
+      center: { lat: panel.Lat, lng: panel.Lng }, // Set the map center based on the panel's coordinates
+      zoom: 10, // Initial zoom level
+    };
+    const mapContainer = document.getElementById('map');
+
+    if (mapContainer) {
+      const map = new google.maps.Map(mapContainer, mapOptions);
+
+      // Create a marker on the map
+      const marker = new google.maps.Marker({
+        position: { lat: panel.Lat, lng: panel.Lng },
+        map: map,
+        title: panel.panel_name
+      });
+
+      // Add a click event listener to the marker
+      marker.addListener('click', () => {
+        this.selectedMarker = { lat: panel.Lat, lng: panel.Lng };
+      });
+    }
+  }
+    //const mapContainer = document.getElementById('map');
   constructor(private getAPI: GetServiceService) {}
   ngOnInit() {
     this.getAPI.getData().pipe(pluck("result")).subscribe(r => {
@@ -54,6 +83,7 @@ export class AppComponent {
         
       });
   }
+
   createSidebarTable(l: string) {
     
    this.selectedPanelName=l;
@@ -69,16 +99,13 @@ export class AppComponent {
     }} 
     this.isSidebarOpen = true;
   }
-  // toggleSidebar(panelName: string) {
-  //   if (this.selectedPanelName === panelName) {
-  //     // If the selected panel name matches the one that was clicked, close the sidebar.
-  //     this.isSidebarOpen = false;
-  //   } else {
-  //     // If a different panel name was clicked, open the sidebar and update the table.
-  //     this.createSidebarTable(panelName);
-  //   }
-  // }
+
   closeSidebar() {
     this.isSidebarOpen = false;
+  }
+
+  closeMapSidebar() {
+    this.isMapVisible = false;
+    this.selectedMarker = null;
   }
 }
