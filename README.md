@@ -7,7 +7,7 @@ In this project there are three things implemented after fetching data from the 
 
 ![image](https://github.com/islursmriti/fetchdatafromapi/assets/104566739/0ecbd5b6-b1a2-4cc4-8f1a-997a06d1f811)
 
-# 3. If clicked on Location Icon a sidebar should open with map.
+# 3. If clicked on Location Icon a sidebar should open with map. If clicked on the marker the Latitude and Longitude values will be shown
 
 ![image](https://github.com/islursmriti/fetchdatafromapi/assets/104566739/812c3903-f7d6-476c-8681-fa8379dd0e2c)
 
